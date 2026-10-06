@@ -1,7 +1,11 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { getCurrentUser } from "../Services/authService";
 
 function Profile() {
+  const user = getCurrentUser();
+  const isManager = user?.role === "manager";
+  const name = user?.name || "GridPulse User";
   return (
     <div className="app-layout">
 
@@ -23,12 +27,12 @@ function Profile() {
           <div className="profile-card">
 
             <div className="profile-avatar">
-              FM
+              {name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase()}
             </div>
 
-            <h2>Facility Manager</h2>
+            <h2>{name}</h2>
 
-            <p>manager@gridpulse.com</p>
+            <p>{user?.email || ""}</p>
 
             <hr />
 
@@ -36,7 +40,7 @@ function Profile() {
 
               <div>
                 <span>Role</span>
-                <strong>Facility Manager</strong>
+                <strong>{isManager ? "Facility Manager" : "Portal User"}</strong>
               </div>
 
               <div>

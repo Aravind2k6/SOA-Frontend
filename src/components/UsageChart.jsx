@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "recharts";
 
-const data = [
+const defaultData = [
   { time: "00:00", usage: 120 },
   { time: "04:00", usage: 180 },
   { time: "08:00", usage: 280 },
@@ -18,7 +18,7 @@ const data = [
   { time: "24:00", usage: 360 },
 ];
 
-function UsageChart() {
+function UsageChart({ data = defaultData } = {}) {
   return (
     <div className="chart-card">
 

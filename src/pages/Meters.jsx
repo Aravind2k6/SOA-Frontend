@@ -4,12 +4,13 @@ import { Plus, Search } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import MeterCard from "../components/MeterCard";
+import { getPortalUsage } from "../Services/usageService";
 
 function Meters() {
 
   const [search, setSearch] = useState("");
 
-  const [meters] = useState([
+  const meters = getPortalUsage()?.meters ?? [
     {
       id: "MTR-001",
       location: "Residential Building A",
@@ -34,7 +35,7 @@ function Meters() {
       status: "Online",
       usage: "6.35",
     },
-  ]);
+  ];
 
   const filteredMeters = meters.filter((meter) =>
     meter.id.toLowerCase().includes(search.toLowerCase())

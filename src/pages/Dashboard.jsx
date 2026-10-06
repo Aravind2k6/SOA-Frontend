@@ -10,8 +10,10 @@ import Navbar from "../components/Navbar";
 import StatCard from "../components/Statcard";
 import UsageChart from "../components/UsageChart";
 import AlertCard from "../components/AlertCard";
+import { getPortalUsage } from "../Services/usageService";
 
 function Dashboard() {
+  const usage = getPortalUsage();
   return (
     <div className="app-layout">
 
@@ -38,7 +40,7 @@ function Dashboard() {
 
             <StatCard
               title="Total Meters"
-              value="12"
+              value={usage?.totalMeters ?? "12"}
               unit=""
               change="+2.4% this month"
               icon={<Gauge size={24} />}
@@ -47,7 +49,7 @@ function Dashboard() {
 
             <StatCard
               title="Today's Usage"
-              value="248"
+              value={usage?.todayUsage ?? "248"}
               unit="kWh"
               change="-8.2% from yesterday"
               icon={<Zap size={24} />}
@@ -56,7 +58,7 @@ function Dashboard() {
 
             <StatCard
               title="Current Load"
-              value="4.82"
+              value={usage?.currentLoad ?? "4.82"}
               unit="kW"
               change="Normal"
               icon={<Activity size={24} />}
@@ -65,7 +67,7 @@ function Dashboard() {
 
             <StatCard
               title="Active Alerts"
-              value="3"
+              value={usage?.activeAlerts ?? "3"}
               unit=""
               change="2 warnings"
               icon={<AlertTriangle size={24} />}
@@ -76,7 +78,7 @@ function Dashboard() {
 
           <div className="dashboard-grid">
 
-            <UsageChart />
+            <UsageChart data={usage?.chart} />
 
             <div className="alerts-panel">
 

@@ -1,8 +1,10 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import UsageChart from "../components/UsageChart";
+import { getPortalUsage } from "../Services/usageService";
 
 function UsageAnalytics() {
+  const usage = getPortalUsage();
   return (
     <div className="app-layout">
 
@@ -29,28 +31,28 @@ function UsageAnalytics() {
 
           </div>
 
-          <UsageChart />
+          <UsageChart data={usage?.chart} />
 
           <div className="analytics-grid">
 
             <div className="analytics-card">
               <span>Average Daily Usage</span>
-              <strong>32.4 kWh</strong>
+              <strong>{usage?.averageDaily ?? "32.4"} kWh</strong>
             </div>
 
             <div className="analytics-card">
               <span>Peak Consumption</span>
-              <strong>8.7 kW</strong>
+              <strong>{usage?.peak ?? "8.7"} kW</strong>
             </div>
 
             <div className="analytics-card">
               <span>Lowest Consumption</span>
-              <strong>1.2 kW</strong>
+              <strong>{usage?.lowest ?? "1.2"} kW</strong>
             </div>
 
             <div className="analytics-card">
               <span>Monthly Consumption</span>
-              <strong>842 kWh</strong>
+              <strong>{usage?.monthlyUsage ?? "842"} kWh</strong>
             </div>
 
           </div>

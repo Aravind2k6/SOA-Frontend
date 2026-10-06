@@ -8,6 +8,7 @@ import UsageAnalytics from "./pages/UsageAnalytics";
 import Alerts from "./pages/Alerts";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
+import AccountRequests from "./pages/AccountRequests";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -17,6 +18,8 @@ function App() {
       <Routes>
 
         <Route path="/login" element={<Login />} />
+        <Route path="/request-access" element={<Login initialMode="request" />} />
+        <Route path="/manager/accounts" element={<ProtectedRoute requiredRole="manager"><AccountRequests /></ProtectedRoute>} />
 
         <Route
           path="/"

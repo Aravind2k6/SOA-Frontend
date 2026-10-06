@@ -1,6 +1,8 @@
 import { Bell, Search, UserCircle } from "lucide-react";
+import { getCurrentUser } from "../Services/authService";
 
 function Navbar() {
+  const user = getCurrentUser();
   return (
     <header className="navbar">
 
@@ -20,8 +22,8 @@ function Navbar() {
           <UserCircle size={34} />
 
           <div>
-            <strong>Facility Manager</strong>
-            <small>Administrator</small>
+            <strong>{user?.name || "GridPulse User"}</strong>
+            <small>{user?.role === "manager" ? "Facility Manager" : "Portal User"}</small>
           </div>
         </div>
 

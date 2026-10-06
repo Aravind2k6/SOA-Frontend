@@ -7,13 +7,15 @@ import {
   User,
   LogOut,
   Zap,
+  UserRoundCheck,
 } from "lucide-react";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import { logoutUser } from "../Services/authService";
+import { getCurrentUser, logoutUser } from "../Services/authService";
 
 function Sidebar() {
   const navigate = useNavigate();
+  const currentUser = getCurrentUser();
 
   const menuItems = [
     {
@@ -47,6 +49,10 @@ function Sidebar() {
       icon: User,
     },
   ];
+
+  if (currentUser?.role === "manager") {
+    menuItems.push({ name: "Account Requests", path: "/manager/accounts", icon: UserRoundCheck });
+  }
 
   const handleLogout = () => {
     logoutUser();

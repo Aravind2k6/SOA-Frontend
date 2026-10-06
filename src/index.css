@@ -983,6 +983,79 @@ button {
   background: #15803d;
 }
 
+.login-switch,
+.demo-note {
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 18px;
+}
+
+.login-switch a,
+.text-button {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.text-button {
+  border: 0;
+  background: none;
+}
+
+.demo-note { font-size: 11px; margin-top: 22px; }
+.form-message, .form-error { margin-top: 14px; font-size: 13px; line-height: 1.45; }
+.form-message { color: #15803d; }
+.form-error { color: #dc2626; }
+
+.request-count {
+  color: #92400e;
+  background: #fef3c7;
+  padding: 9px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.request-panel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.request-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.request-row:last-child { border-bottom: 0; }
+.request-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #15803d;
+  background: #dcfce7;
+  font-weight: 700;
+}
+.request-details { display: grid; gap: 4px; flex: 1; }
+.request-details span, .request-details small { color: #6b7280; font-size: 13px; }
+.request-actions { display: flex; gap: 8px; }
+.request-actions button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-weight: 600;
+}
+.approve-button { background: #16a34a; color: white; border: 1px solid #16a34a; }
+.reject-button { background: white; color: #b91c1c; border: 1px solid #fecaca; }
+.empty-requests { text-align: center; padding: 54px 20px; }
+.empty-requests p { margin-top: 8px; color: #6b7280; }
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -1045,6 +1118,10 @@ button {
   .login-box {
     width: 100%;
   }
+
+  .page-heading { align-items: flex-start; gap: 12px; }
+  .request-row { align-items: flex-start; flex-wrap: wrap; padding: 16px; }
+  .request-actions { width: 100%; margin-left: 58px; }
 
   .search-box {
     width: 180px;
