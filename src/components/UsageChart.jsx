@@ -18,45 +18,57 @@ const defaultData = [
   { time: "24:00", usage: 360 },
 ];
 
-function UsageChart({ data = defaultData } = {}) {
+function UsageChart({ data = defaultData, subtitle = "Today's electricity usage", showPeriodSelect = true, onPointClick, selectedPoint } = {}) {
   return (
     <div className="chart-card">
 
       <div className="card-header">
         <div>
           <h3>Energy Consumption</h3>
-          <p>Today's electricity usage</p>
+          <p>{subtitle}</p>
         </div>
 
-        <select>
+        {showPeriodSelect && <select aria-label="Chart time period" defaultValue="Today">
           <option>Today</option>
           <option>This Week</option>
           <option>This Month</option>
-        </select>
+        </select>}
       </div>
 
       <ResponsiveContainer width="100%" height={320}>
 
-        <AreaChart data={data}>
+        <AreaChart data={data} onClick={(state) => {
+          const point = state?.activePayload?.[0]?.payload;
+          if (point) onPointClick?.(point);
+        }}>
 
           <CartesianGrid strokeDasharray="3 3" />
 
           <XAxis dataKey="time" />
 
-          <YAxis />
+          <YAxis unit=" kWh" width={64} />
 
-          <Tooltip />
+          <Tooltip formatter={(value) => [`${value} kWh`, "Usage"]} />
 
           <Area
             type="monotone"
             dataKey="usage"
             stroke="#16a34a"
             fill="#bbf7d0"
+            activeDot={{ r: 7 }}
           />
 
         </AreaChart>
 
       </ResponsiveContainer>
+
+      {selectedPoint ? (
+        <p className="chart-selection" aria-live="polite">
+          <strong>{selectedPoint.time}</strong>: {selectedPoint.usage} kWh in this interval
+        </p>
+      ) : (
+        <p className="chart-hint">Select a point on the chart to inspect that interval.</p>
+      )}
 
     </div>
   );

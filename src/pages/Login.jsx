@@ -12,23 +12,22 @@ function Login({ initialMode = "login" }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setMessage("");
     setError("");
     try {
       if (mode === "request") {
-        requestAccount({ name, email, password });
+        await requestAccount({ name, email, password });
         setMessage("Request sent. A manager must approve your account before you can sign in.");
         setMode("login");
         setPassword("");
         return;
       }
-      loginUser(email, password)
-        .then((result) => navigate(result.user?.role === "manager" ? "/manager/accounts" : "/"))
-        .catch((loginError) => setError(loginError.message || "Invalid login details"));
+      const result = await loginUser(email, password);
+      navigate(result.user?.role === "manager" ? "/manager/accounts" : "/");
     } catch (submitError) {
-      setError(submitError.message);
+      setError(submitError.response?.data?.message || submitError.message || "Unable to complete the request.");
     }
   };
 
@@ -55,7 +54,6 @@ function Login({ initialMode = "login" }) {
           {error && <p className="form-error" role="alert">{error}</p>}
           <button type="submit" className="login-button">{mode === "request" ? "Send account request" : "Login"}</button>
           {mode === "login" ? <p className="login-switch">Need access? <Link to="/request-access" onClick={() => { setMode("request"); setMessage(""); setError(""); }}>Request an account</Link></p> : <p className="login-switch"><button type="button" className="text-button" onClick={() => setMode("login")}>Back to login</button></p>}
-          <p className="demo-note">Demo manager: manager@gridpulse.local / Manager123!</p>
         </form>
       </div>
     </div>

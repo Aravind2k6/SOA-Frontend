@@ -1,4 +1,4 @@
-function AlertCard({ type, title, description, time }) {
+function AlertCard({ type, title, description, time, acknowledged = false, onAcknowledge }) {
   return (
     <div className={`alert-card ${type}`}>
 
@@ -15,6 +15,17 @@ function AlertCard({ type, title, description, time }) {
         <p>{description}</p>
 
         <small>{time}</small>
+
+        {onAcknowledge && (
+          <button
+            type="button"
+            className="alert-acknowledge"
+            onClick={onAcknowledge}
+            disabled={acknowledged}
+          >
+            {acknowledged ? "Acknowledged" : "Acknowledge"}
+          </button>
+        )}
 
       </div>
 

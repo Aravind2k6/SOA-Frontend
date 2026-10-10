@@ -12,6 +12,7 @@ import {
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { getCurrentUser, logoutUser } from "../Services/authService";
+import { isFrontendDemoMode } from "../Services/api";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -54,8 +55,8 @@ function Sidebar() {
     menuItems.push({ name: "Account Requests", path: "/manager/accounts", icon: UserRoundCheck });
   }
 
-  const handleLogout = () => {
-    logoutUser();
+  const handleLogout = async () => {
+    if (!isFrontendDemoMode) await logoutUser();
     navigate("/login");
   };
 
